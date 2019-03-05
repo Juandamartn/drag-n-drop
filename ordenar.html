@@ -72,6 +72,7 @@
             element.appendChild(document.getElementById(data));
         }
 
+        var contador = 0;
         var test = function() {
             document.querySelectorAll('.contenedor').forEach(function(elemento) {
                 let respuesta = elemento.getAttribute('data-respuesta');
@@ -88,10 +89,16 @@
                     } else {
                         inc.className = 'incorrecto';
                     }
-
                 }
                 //timeout para quitar el color del borde
-                
+                window.setTimeout(function() {
+                    let inc = elemento.firstChild;
+                    if (inc == null) {
+                        console.log('es nulo we');
+                    } else {
+                        inc.className = 'arrastrable';
+                    }
+                }, 6000);
             });
         }
 
