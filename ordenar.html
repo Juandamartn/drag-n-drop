@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Drag and drop</title>
+</head>
+
+<body>
+    <header>
+        AE 1.10 – Arrastrar y soltar
+    </header>
+
+    <div id="contenedorOpciones" class="opciones">
+        <div id="drag1" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt body &gt</div>
+        <div id="drag2" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt h1 &gt Mi primer encabezado &lt /h1 &gt</div>
+        <div id="drag3" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt head &gt</div>
+        <div id="drag4" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt /head &gt</div>
+        <div id="drag5" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt p &gt Mi primer párrafo &lt /p &gt </div>
+        <div id="drag6" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt !DOCTYPE html &gt</div>
+        <div id="drag7" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt html &gt</div>
+        <div id="drag8" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt /body &gt</div>
+        <div id="drag9" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt title &gt Título del documento &lt /title &gt </div>
+        <div id="drag10" draggable="true" ondragstart="drag(event)" class="arrastrable">&lt /html &gt</div>
+    </div>
+
+    <div class="espacios">
+        <div id="contenedor1" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag6"></div>
+
+        <div id="contenedor2" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag7"></div>
+
+        <div id="contenedor3" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag3"></div>
+
+        <div id="contenedor4" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag9"></div>
+
+        <div id="contenedor5" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag4"></div>
+
+        <div id="contenedor6" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag1"></div>
+
+        <div id="contenedor7" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag2"></div>
+
+        <div id="contenedor8" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag5"></div>
+
+        <div id="contenedor9" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag8"></div>
+
+        <div id="contenedor10" ondrop="drop(event, this)" ondragover="allowDrop(event)" class="contenedor" data-respuesta="drag10"></div>
+
+        <button onclick="test();"><i class="fas fa-check"></i> Evaluar</button>
+    </div>
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev, element) {
+            let tamano = element.childNodes.length;
+            if (tamano > 0) {
+                let elementoBorrar = element.firstChild;
+                element.removeChild(elementoBorrar);
+                document.getElementById('contenedorOpciones').appendChild(elementoBorrar);
+            }
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            element.appendChild(document.getElementById(data));
+        }
+
+        var test = function() {
+            document.querySelectorAll('.contenedor').forEach(function(elemento) {
+                let respuesta = elemento.getAttribute('data-respuesta');
+                let respuestaUsuario = elemento.querySelector('#' + respuesta);
+                if (respuestaUsuario !== null) {
+                    //Respuesta correcta
+                    console.log(respuestaUsuario);
+                    respuestaUsuario.className = "correcto";
+                } else {
+                    //Respuesta incorrecta
+
+                }
+                //timeout para quitar el color del borde
+            });
+        }
+
+    </script>
+</body>
+
+</html>
