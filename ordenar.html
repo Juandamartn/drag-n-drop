@@ -76,15 +76,22 @@
             document.querySelectorAll('.contenedor').forEach(function(elemento) {
                 let respuesta = elemento.getAttribute('data-respuesta');
                 let respuestaUsuario = elemento.querySelector('#' + respuesta);
-                if (respuestaUsuario !== null) {
+
+                if (respuestaUsuario != null) {
                     //Respuesta correcta
-                    console.log(respuestaUsuario);
                     respuestaUsuario.className = "correcto";
                 } else {
                     //Respuesta incorrecta
+                    let inc = elemento.firstChild;
+                    if (inc == null) {
+                        console.log('es nulo we');
+                    } else {
+                        inc.className = 'incorrecto';
+                    }
 
                 }
                 //timeout para quitar el color del borde
+                
             });
         }
 
